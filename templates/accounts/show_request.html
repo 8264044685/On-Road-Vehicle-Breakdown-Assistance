@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated%}
+    {% ifequal user.userprofile.user_type 'mechanics' %}
+		<div class="container">
+		  <h2>Request List</h2>
+		  
+		  <div style="overflow-x:auto;">        
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Name</th>
+			        <th>Email</th>
+			        <th>Mobile Number</th>
+			        <th>Car Name</th>
+			        <th>Car Model No</th>
+			        <th>District</th>
+			        <th>City</th>
+			        <th>Services Name</th>
+			        <th>Request Time</th>
+			        <th>Image</th>
+			        <th>Request</th>
+			        <th>Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      	{% for userdata in data %}
+			      	<form>
+			      	<tr>
+			      		{% csrf_token %}
+			        	<td>{{userdata.user.username}}</td>
+			        	<td>{{userdata.user.email}}</td>
+			        	<td>{{userdata.userProfile.mobile_No}}</td>
+			        	<td>{{userdata.car.name}}</td>
+			        	<td>{{userdata.model_no.model_no}}</td>
+			        	<td>{{userdata.dist.dist_name}}</td>
+			        	<td>{{userdata.city.city_name}}</td>
+			        	<td>{{userdata.services_name}}</td>
+			        	<td>{{userdata.requested_time}}</td>
+			        	<td><img src="{{userdata.userProfile.profile_picture.url}}" height="100" width="100"></td>
+			        	<td>
+							{% if userdata.status == '0' %}
+			        		<span><a href="{% url 'request_handle' userdata.id  %}?status={{ 1 }}" class="btn btn-default" style="height: 40px;width: 80px;">Accept</a><a href="{% url 'request_handle' userdata.id %}?status={{ 2 }}" class="btn btn-default" style="height: 40px;width: 80px;">Reject</a> </span>
+			        		{%  elif userdata.status == '1' %}
+			        			<span><a href="#" class="btn btn-success" style="height: 40px;width: 80px;">Accept</a><a href="{% url 'request_handle' userdata.id %}?status={{ 2 }}" class="btn btn-default" style="height: 40px;width: 80px;">Reject</a> </span>
+			        		{%  elif userdata.status == '2' %}
+			        			<!-- <a href="#" class="btn btn-default" style="height: 40px;width: 80px;">Accept</a> --><span class="btn btn-danger" style="height: 40px;width: 80px;">Rejected </span>
+			        		{% endif %}
+			        		
+			        	</td>
+			        	{%if userdata.status == '1' or userdata.status == '2' %}
+			        		<td>
+			        			<span><a href="{% url 'request_handle' userdata.id %}?status={{ 4 }}" class="btn btn-default" style="height: 40px;width: 80px;">Delete</a> </span>
+			        		</td>
+			        	{% else %}
+			        		<td></td>
+			        	{% endif %}
+			        </tr> 
+			        </form>
+			        {% endfor %}
+			        
+			          
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+	{% endifequal %}
+	{% endif %}
+	{% if user.is_authenticated%}
+	{% ifequal user.userprofile.user_type 'user' %}
+		<div class="container">
+		  <h2>Request List</h2>
+		  
+		  <div style="overflow-x:auto;">        
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Name</th>
+			        <th>Email</th>
+			        <th>Mobile Number</th>
+			        <th>Car Name</th>
+			        <th>Car Model No</th>
+			        <th>District</th>
+			        <th>City</th>
+			        <th>Services Name</th>
+			        <th>Request Time</th>
+			        <th>Image</th>
+			        <th>Request</th>
+			        <th>Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      	{% for user_data in userdata %}
+			      	<form>
+			      	<tr>
+			      		{% csrf_token %}
+			        	<td>{{user_data.user.username}}</td>
+			        	<td>{{user_data.user.email}}</td>
+			        	<td>{{user_data.userProfile.mobile_No}}</td>
+			        	<td>{{user_data.car.name}}</td>
+			        	<td>{{user_data.model_no.model_no}}</td>
+			        	<td>{{user_data.dist.dist_name}}</td>
+			        	<td>{{user_data.city.city_name}}</td>
+			        	<td>{{user_data.services_name}}</td>
+			        	<td>{{user_data.requested_time}}</td>
+			        	<td><img src="{{user_data.userProfile.profile_picture.url}}" height="100" width="100"></td>
+			        	<td>
+							{% if user_data.status == '0' %}
+			        		<span class="btn btn-default" style="height: 40px;width: 80px;">Panding</span>{%  elif user_data.status == '1' %}
+			        			<span class="btn btn-success" style="height: 40px;width: 80px;">Accepted</span>
+			        		{%  elif user_data.status == '2' %}
+			        			<span class="btn btn-danger" style="height: 40px;width: 80px;">Rejected </span> 
+			        		{% endif %}
+			        	</td>
+		        		<td>
+		        			<span><a href="{% url 'request_handle' user_data.id %}?status={{ 4 }}" class="btn btn-danger" style="height: 40px;width: 80px;">Delete</a> </span>
+		        		</td>
+			        </tr> 
+			        </form>
+			        {% endfor %}
+			        
+			          
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+	{% endifequal %}
+	{% endif %}
+
+
+{% endblock %}

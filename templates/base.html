@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="application/x-javascript">
+    addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+</script>
+<!--// Meta tag Keywords -->
+
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" type="text/css" media="all">
+<!-- css files -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> <!-- Bootstrap-Core-CSS -->
+<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" /> 
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap-multiselect.css' %}" type="text/css"  />  -->
+<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" type="text/css"  /> 
+
+<!-- Style-CSS --> 
+<link rel="stylesheet" href="{% static 'css/fontawesome-all.css' %}"> <!-- Font-Awesome-Icons-CSS -->
+<!-- //css files -->
+
+<!-- web-fonts -->
+<link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+	
+</head>
+<body>
+	{% include 'partials/_topbar.html' %}
+	{% include 'partials/_alerts.html' %}
+	{% include 'partials/_menu.html' %}
+
+	{% include 'partials/_banner.html' %}
+
+	{% block content %}
+
+
+
+
+	{% endblock %}
+
+	
+	{% include 'partials/_signin.html' %}
+	{% include 'partials/_register.html' %}
+	{% include 'partials/_footer.html' %}
+
+	<script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script> 
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script> 
+	<!-- <script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>  -->
+	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script> 
+	
+
+
+	<!-- Necessary-JavaScript-File-For-Bootstrap --> 
+	<!-- //js -->
+	
+	<!-- carousel -->
+	<script src="{% static 'js/owl.carousel.js' %}"></script>
+
+
+
+	<script>
+		$(document).ready(function () {
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1,
+						nav: true
+					},
+					600: {
+						items: 1,
+						nav: false
+					},
+					900: {
+						items: 2,
+						nav: false
+					},
+					1000: {
+						items: 3,
+						nav: true,
+						loop: false,
+						margin: 20
+					}
+				}
+			})
+		})
+	</script>
+	<!-- //carousel -->
+
+	<!--slider-->
+	<script src="{% static 'js/responsiveslides.min.js' %}"></script>
+	<script>
+		$(function () {
+			// Slideshow 1
+			$("#slider1").responsiveSlides({
+				auto: true,
+				pager: true,
+				nav: true,
+				speed: 500,
+				namespace: "centered-btns"
+			});
+		});
+	</script>
+	<!--//slider-->
+
+	<!-- start-smoth-scrolling -->
+	<script src="{% static 'js/SmoothScroll.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/address.js' %}"></script> 
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+
+			
+		    	
+
+
+		});
+	</script>
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+				
+				
+
+			
+
+								
+			});
+	</script>
+	<script type="text/javascript">
+ 	
+ </script>	
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,58 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" /> 
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap-multiselect.css' %}" type="text/css"  />  -->
+<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" type="text/css"  /> 
+
+<!-- Style-CSS --> 
+<link rel="stylesheet" href="{% static 'css/fontawesome-all.css' %}"> <!-- Font-Awesome-Icons-CSS -->
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" type="text/css" media="all">
+
+
+ <!-- Bootstrap-Core-CSS -->
+
+
+
+	<!-- <option value="{{ mechanic_data.user }}">{{ mechanic_data.user.username }}</option> -->
+	<div>
+<h2 style="font-weight: bold;" class="text-capitalize; text-center;">Our Mechanics</h2>
+</div>
+
+{% for mechanic_data in mechanics_data %}
+	<form method="POST" action="{% url 'books_mechanics' %}">
+		{% csrf_token %}
+		<input type="hidden" name="city_id" value="{{ city_id }}">
+		<input type="hidden" name="model_id" value="{{ model_id }}">
+		<input type="hidden" name="state_id" value="{{ state_id }}">
+		<input type="hidden" name="district_id" value="{{ district_id }}">
+		<input type="hidden" name="car_id" value="{{ car_id }}">
+		<input type="hidden" name="services" class="service" value="{{ services }}">
+		<input type="hidden" name="mechanic_id" value="{{mechanic_data.user.id}}">
+		{% for userprofile in userprofile %}
+		<input type="hidden" name="userprofile_id" value="{{ userprofile.id }}">
+		{% endfor %}
+		<div class="card" style="width: 25rem;">
+		  <img class="card-img-top" src="{{ mechanic_data.userProfile.profile_picture.url }}" height="150" width="150" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title" style="font-size: 20px; font-weight: bold; text-transform: capitalize; ">{{mechanic_data.user.username}}</h5>
+		    <h5 class="card-text" style="min-height:50px; text-transform: capitalize;">{{mechanic_data.address}}</h5>
+		    <span style="font-weight: bold;">Services Name</span>
+		    <br>
+		    <span>{{ mechanic_data.services_name }}</span>
+		    <br>
+		    <span style="font-weight: bold;">Mobile No</span>
+		    <br>
+		    
+		    <span>{{ mechanic_data.userProfile.mobile_No }}</span>
+		    <br>
+		    <input type="hidden" name="mechanics_work_id" value="{{mechanic_data.id}}">
+		    <br>
+		    <!-- <a href="{% url 'books_mechanics' %}" class="btn btn-primary"> <button >test 1</button></a> -->
+		    <input type="submit" name=""  class="btn btn-primary" value="Booking"> 
+		  </div>
+		</div>
+	</form>
+{% endfor %}

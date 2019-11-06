@@ -1,0 +1,30 @@
+{% load static %}
+<section class="testimonials banner-bottom-agile-w3ls py-5">
+<div class="container py-lg-5 py-3">
+    <h3 class="heading text-capitalize text-center">Our Mechanics</h3>
+    <h5 class="heading mb-5 text-center">On Road Vehicle Breakdown Assistence</h5>
+    <div class="inner-sec-w3layouts-agileits">
+        <div class="owl-carousel owl-theme">
+            {% for mechanical_data in mechanicals_data %}
+            <div class="item">
+                <div class="feedback-info">
+                    <div class="feedback-top p-4">
+                        <p> {{ mechanical_data.address }} </p>
+                    </div>
+                    <div class="feedback-grids">
+                        <div class="feedback-img">
+                            <img src="{% static 'images/team1.jpg' %}" class="img-fluid" alt="" />
+                        </div>
+                        <div class="feedback-img-info">
+                            <h5>{{ mechanical_data.user.username }}</h5>
+                            <p>{{ mechanical_data.userProfile.user_type }}</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}           
+        </div>
+    </div>
+</div>
+</section>

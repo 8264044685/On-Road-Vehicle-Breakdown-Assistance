@@ -1,0 +1,44 @@
+<div class="top-bar_sub_w3layouts container-fluid">
+    <div class="row">
+        
+        <div class="col-md-4 col-sm-6 log-icons mt-2">
+            {% if user.is_authenticated %}
+                <p class="py-2"><i class="fas fa-phone"></i> Call Our Assistance : (+91) 706 978 3701</p>
+            {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-4 col-sm-6 logo">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <i class="fas fa-taxi"></i>
+                
+                    Welcome :  {{user.username}}
+                    
+                
+        </div>
+        </a>
+        {% endif %}
+        <!-- div class="col-md-4 top-forms mt-md-3 mt-2 mb-md-0 mb-3">
+            <span class="mx-lg-4 mx-md-2  mx-1">
+                <a href="#" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">
+                    <i class="fas fa-lock"></i> Sign In</a>
+            </span>
+            <span>
+                <a href="#" data-toggle="modal" data-target="#exampleModal1" >
+                    <i class="fas fa-user"></i> Register</a>
+            </span>
+        </div> -->
+        <!-- <div class="col-md-4 top-forms mt-md-3 mt-2 mb-md-0 mb-3">
+            <span class="mx-lg-4 mx-md-2  mx-1">
+                <a href="#" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">
+                    <i class="fas fa-lock"></i>
+                        
+                     </a>
+            </span>
+         -->    <!-- <span>
+                <a href="#" data-toggle="modal" data-target="#exampleModal1" >
+                    <i class="fas fa-user"></i> Register</a>
+            </span> 
+        </div> -->
+    </div>
+</div>
+

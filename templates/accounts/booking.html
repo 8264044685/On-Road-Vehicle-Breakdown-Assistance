@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="why">
+  <div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Search Mechanics in your city</h3>
+    <div style="margin: 0 auto; max-width: 1070px; min-height: 80px;   background-color: #f1f1f1" >
+      <form  method="POST" action="{% url 'books_mechanics' %}"  id="personForm"   style="min-height: 100px;" data-mechanics-url="{% url 'load_mechanics' %}"  data-district-url="{% url 'load_district' %}" data-city-url="{% url 'load_city' %}" data-model-url="{% url 'load_carModel' %}" >
+      {% csrf_token %}
+        <table>
+          <tr>
+            <td>
+              <select name="car_id" id="car_id" style="width: 190px;"  >
+                <option selected="true" disabled="disabled">Select Your Car</option>
+                {% for car in car %}
+                 <option value="{{car.id}}">{{car.name}}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td>
+              <select name="model_id" id="model_id" style="width: 190px;">
+                <option selected="true" disabled="disabled">Select Car Model</option>
+              </select>     
+            </td>
+            <td>
+              <select name="state" id="state_id" style="width: 190px;">
+                <option selected="true" disabled="desabled">Select State</option>
+                {% for state in state %}
+                  <option value="{{state.id}}">{{state.state_name}}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td>
+              <select name="district" id="id_district" style="width: 190px;">
+                <option selected="true" disabled="disabled">Select District</option>
+              </select>
+            </td>
+            <td>
+              <select name="city" id="id_city" style="width: 190px;">
+                <option selected="true" disabled="disabled">Select City</option>
+              </select>
+            </td>
+          </tr>  
+
+          <!-- <tr>
+            <td></td>
+            <td><input type="submit" name="submit" value="Search" class="btn btn-primary col-sm-7 text-center"></td>
+          </tr>
+         -->
+        </table>
+        <table>
+          <tr style="height: 150px; ">
+            <td align="center" style="height: 50px;font-size: 20px; padding: 10px;   font-family: time-new-romen "><b>Select Services</b>
+            </td>
+            <td style="width: 600px;">
+              {% for services in services %}
+                <input class="service_names" style="width: 100px; float: left; border: .5px groove;" type="checkbox" name="services_name" value="{{services.services}}">
+                <div style="width: 100px; float: left; ">{{services.services}}</div>
+              {% endfor %}
+            </td>
+          </tr>
+        </table>
+        <br><br>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials banner-bottom-agile-w3ls py-5">
+  <div class="container py-lg-5 py-3">
+      <div class="inner-sec-w3layouts-agileits">
+          <div class="owl-carousel owl-theme">
+            <div class="item">
+              <div id="mechanic_id" class="container">
+              
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Search Where Yo Are</h3>
+    <div style="margin: 0 auto; max-width: 1070px; min-height: 80px;   background-color: #f1f1f1" >
+      <table>
+        <tr>
+          <td style="width: 400px;">Destination: <input type="text" id="destination" /><br /><br /></td>
+          <td style="width: 300px; padding: 0 0 0 10px;"><button style="height: 40px;" class="btn btn-primary" id="btnPath" onclick="findPath();">Show Path</button></td>
+        </tr>
+      </table>   
+      <div id="mapArea" style="min-width: 300px; min-height: 400px;"></div>  
+    </div>
+  </div>
+</section>
+  
+
+
+
+<script src="http://maps.googleapis.com/maps/api/js?key=Your_api_key=&sensor=true"></script>
+
+<script type="text/javascript">
+
+var points = [{}, {}];
+
+var map;
+
+function findPath()
+  {
+  if (navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError,
+        {maximumAge:60*1000, timeout:5*60*1000, enableHighAccuracy:true});
+    }
+    else
+      document.getElementById("mapArea").innerHTML = "Your browser does not support HTML5 Geolocation!!!";
+  }
+  function onSuccess(position)
+  {
+    points[0].lat = position.coords.latitude;
+    points[0].long = position.coords.longitude;
+    var localAddress = document.getElementById("destination").value.replace(" ", "+");
+    var xmlhttpAddr = new XMLHttpRequest();
+    // var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + localAddress;
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+localAddress+"&key=Your Api Key";
+      
+
+    xmlhttpAddr.open("GET", url, false);
+    xmlhttpAddr.send();
+    if (xmlhttpAddr.readyState == 4 && xmlhttpAddr.status == 200)
+    {
+      var result = xmlhttpAddr.responseText;
+      var jsResult = eval("(" + result + ")");
+      points[1].lat = jsResult.results[0].geometry.location.lat;
+      points[1].long = jsResult.results[0].geometry.location.lng;
+    }
+    var mapOptions = {
+    center: new google.maps.LatLng(points[0].lat, points[0].long),
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("mapArea"), mapOptions);
+  var latlngbounds = new google.maps.LatLngBounds();
+  
+  for(var i=0;i<points.length;i++)
+  {
+    var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(points[i].lat, points[i].long),
+    map:map
+  });
+    latlngbounds.extend(marker.position);
+  }
+  map.fitBounds(latlngbounds);
+  drawPath();
+}
+function drawPath()
+  {
+    var directionsService = new google.maps.DirectionsService();
+    var poly = new google.maps.Polyline({strokeColor:"#FF0000", strokeWeight:4});
+    var request = {
+    origin: new google.maps.LatLng(points[0].lat, points[0].long),
+    destination: new google.maps.LatLng(points[1].lat, points[1].long),
+    travelMode: google.maps.DirectionsTravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status){
+    if (status == google.maps.DirectionsStatus.OK)
+    {
+      new google.maps.DirectionsRenderer({
+        map:map,
+        polylineOptions: poly,
+        directions:response
+      });
+    }
+  });
+}
+
+function onError(error)
+  {
+    switch(error.code)
+    {
+      case PERMISSION_DENIED:
+        alert("User denied permission");
+      break;
+      case TIMEOUT:
+        alert("Geolocation timed out");
+        break;
+      case POSITION_UNAVAILABLE:
+        alert("Geolocation information is not available");
+        break;
+      default:
+        alert("Unknown error");
+        break;
+    }
+  }
+</script>
+  
+<!-- <script type = "text/javascript">
+
+  $(document).on('submit', '#new_user_form', function(e)){
+    e.preventDefault()
+    var url = $("#personForm").attr("data-booking-url");
+    $.ajax({
+      type: 'POST',
+      url:url,
+      data:{
+        car_id:$('#car_id').val(),
+        // description:$('#description').val(),
+        // price:$('#price').val(),
+      }
+      console.log(car_id)
+       // console.log(description), console.log(price)
+      success.function(){
+        console.log('created')
+      }
+    })
+  }
+
+</script>
+
+ -->
+
+
+
+<script>
+
+    $("#car_id").change(function () {
+      var url = $("#personForm").attr("data-model-url");
+      var car_id = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'car_id': car_id
+        },
+        success: function (data) {
+          $("#model_id").html(data);
+        }
+      });
+
+    });
+
+    $("#state_id").change(function () {
+      var url = $("#personForm").attr("data-district-url");
+      var state_id = $(this).val();
+      
+      $.ajax({
+        url: url,
+        data: {
+          'state_id': state_id
+        },
+        success: function (data) {
+          $("#id_district").html(data);
+        }
+      });
+
+    });
+
+    $("#id_district").change(function () {
+      var url = $("#personForm").attr("data-city-url");
+      var dist_id = $(this).val();
+     
+      $.ajax({
+        url: url,
+        data: {
+          'dist_id': dist_id
+        },
+        success: function (data) {
+          $("#id_city").html(data);
+        }
+      });
+
+    });
+
+    
+    $(document).on('click','.service_names',function(){
+      var services = [];  
+      $(".service_names:checked").each(function() {
+        services.push(this.value);
+      });
+      $('.service').val(services);
+    });
+
+    $("#id_city").change(function () {
+      var url = $("#personForm").attr("data-mechanics-url");
+      var car_id = $('#car_id option:selected').val();
+      var model_id = $('#model_id option:selected').val();
+      var state_id = $('#state_id option:selected').val();
+      var district_id = $('#id_district option:selected').val();
+      var city_id = $(this).val();
+      var services = [];  
+      $(".service_names:checked").each(function() {
+        services.push(this.value);
+      });
+      // console.log('car id:'+car_id+', modal id:'+model_id+', state id:'+state_id+', dist id:'+district_id+', :city_id:'+city_id);return false;     
+      $.ajax({
+        url: url,
+        data: {
+          'model_id': model_id,
+          'state_id': state_id,
+          'district_id': district_id,
+          'car_id': car_id,
+          'city_id': city_id,
+          'services': services.join(),
+          
+        },
+        success: function (data) {
+          $("#mechanic_id").html(data);
+        }
+      });
+
+
+    });
+
+    
+
+</script>
+
+
+
+{% endblock %}
+
+
+
+

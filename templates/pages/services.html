@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Why taxi cab -->
+<!-- //what we do -->
+<br>
+<!-- <div class="col-md-6 w3layouts-reg-form contact-form-row-agileinfo">				
+	<form>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Email address</label>
+	    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+	    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Password</label>
+	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	  </div>
+	  <div class="form-group form-check">
+	    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+	    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+	  </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+ -->
+ <!-- Default inline 1-->
+
+{% if user.is_authenticated%}
+    {% ifequal user.userprofile.user_type 'mechanics' %}
+
+ <style type="text/css">
+ .submit_services {
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+  transition-duration: 0.4s;
+}
+
+.submit_services:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+ </style>
+ <div style=" margin: 0 auto; background-color: gray; width: 1000px;"><h2>Mechanic Detail </h2></div>
+ <form method="post" id="personForm" action="{% url 'services' %}"  data-district-url="{% url 'load_district' %}" data-city-url="{% url 'load_city' %}" style="margin: 0 auto;width: 1000px; border: 1px solid #00dba0; background-color: #f1f1f1 ">
+{% csrf_token %}
+{% if user.is_authenticated %}
+  <input type="hidden" name="user_id" value="{{ user.id }}">
+{% else %}
+  <input type="hidden" name="user_id" value="0">
+{% endif %}
+<input type="hidden" name="lat" id="lat" >
+<input type="hidden" name="long" id="long">
+
+{% if user.is_authenticated %}
+	<input type="hidden" name="userprofile_id" value="{{user.userprofile.id}}">
+{% endif %}
+ <table >
+ <table >
+ 	<tr style="height: 150px; ">
+ 		<td align="center" style="height: 50px;font-size: 20px; padding: 10px;	 font-family: time-new-romen "><b>Select Services</b></td>
+ 	
+ 		<td style="width: 600px;">
+			
+ 			{% for services in service %}
+		 		<input style="width: 100px; float: left; border: .5px groove;" type="checkbox" name="services_name" value="{{services.services}}">
+		 		<div style="width: 100px; float: left; ">{{services.services}}</div>
+		 	{% endfor %}
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td style="padding: 10px;">Pincode</td>
+ 		<td><input type="text" name="pincode" ></td>
+ 	</tr>
+	
+ 	<tr style="height: 80px; ">
+ 		<td style="padding: 10px;">Address</td>
+ 		<td><textarea name="address" style="min-width: 410px; min-height: 50px;  "></textarea></td>	
+ 	</tr>
+ 	<tr>
+ 		<td style="padding: 10px;">Select State</td>
+ 		<td>
+ 			<select name="state" id="state_id" >
+ 				<option selected="true" disabled="desabled">Select State</option>
+ 				{% for state in state %}
+ 					<option value="{{state.id}}">{{state.state_name}}</option>
+ 				{% endfor %}
+ 			</select>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td style="padding: 10px;">Select District</td>
+ 		<td>
+ 			<select name="district" id="id_district">
+ 				<option selected="true" disabled="disabled">Select District</option>
+ 			</select>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td style="padding: 10px;">Select City</td>
+ 		<td>
+ 			<select name="city" id="id_city" >
+ 				<option selected="true" disabled="disabled">Select City</option>
+ 			</select>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td></td>
+ 		<td style="width: 200px;float: left;"><input class="submit_services" style="margin-left: 35px;" type="submit" id="submit_services" onclick="get_location()"></td>
+ 	</tr>
+ </table>
+</form>
+<br>
+
+
+	<!-- <td style="width: 800px;">		
+ 					{% for services in service %}
+		 				<input style="width: 200px; " type="checkbox" name="services_name" value="{{services.services}}">{{services.services}}
+		 			{% endfor %}
+		 </td>
+ 	 -->
+{% endifequal %}
+{% endif %}
+
+
+
+
+ 			
+<section class="services py-5" id="services" style="background-color: #ccbf29;">
+	<div class="container py-lg-2">
+        <div class="text-center wthree-title pb-sm-2 pb-2">
+            <h3 class="tittle-w3ls pb-2">Our Services</h3>
+            <p class=" heading mb-3 text-center">Get Best Car Services Anywhere.</p>
+        </div>
+    </div>
+	<div class="container py-lg-5 py-3">
+		<div class="row service-grid-grids text-center">
+			<div class="col-lg-4 col-md-6 service-grid service-grid1">
+				<div class="service-icon">
+					<span class="fa fa-car fa-2x"></span>
+				</div>
+				<h4 class="mt-3">CAR SERVICE</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+			<div class="col-lg-4 col-md-6 service-grid service-grid2 mt-md-0 mt-5">
+				<div class="service-icon">
+					<span class="fa fa-user fa-2x"></span>
+				</div>
+				<h4 class="mt-3">AC REPAIR & SERVICE</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 service-grid service-grid3 mt-lg-0 mt-5">
+				<div class="service-icon">
+					<span class="fa fa-paper-plane fa-2x"></span>
+				</div>
+				<h4 class="mt-3">Full Service</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+			<div class="col-lg-4 col-md-6 service-grid service-grid4 mt-5">
+				<div class="service-icon">
+					<span class="fa fa-search fa-2x"></span>
+				</div>
+				<h4 class="mt-3">GPS Searching</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+			<div class="col-lg-4 col-md-6 service-grid service-grid4 mt-5">
+				<div class="service-icon">
+					<span class="fa fa-car fa-2x"></span>
+				</div>
+				<h4 class="mt-3">CAR REPAIRS</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+			<div class="col-lg-4 col-md-6 service-grid service-grid6 mt-5">
+				<div class="service-icon">
+					<span class="fa fa-cogs fa-2x"></span>
+				</div>
+				<h4 class="mt-3">WHEEL CARE</h4>
+				<p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+			</div>
+		</div>
+	</div>		
+</section>
+<!-- what we do -->
+
+<section class="why">
+	<div class="container-fluid p-md-5 p-3">
+		<h3 class="heading text-capitalize text-center">Why OnRoad vehicles Breakdown Assistant </h3>
+		<h5 class="heading mb-5 text-center">Taxi Cab</h5>
+		<div class="row why-grids">
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-4 grid1 text-center">
+					<h4 class="mx-auto"><span>1</span></h4>
+					<p class="mt-5">Top Rated MEchanics</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-4 grid2 text-center">
+					<h4 class="mx-auto"><span>2</span></h4>
+					<p class="mt-5">Safety Journey</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-4 grid3 text-center">
+					<h4 class="mx-auto"><span>3</span></h4>
+					<p class="mt-5">Without Peak Pricing</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-4 grid4 text-center">
+					<h4 class="mx-auto"><span>4</span></h4>
+					<p class="mt-5">Fast And Secure</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-md-0 mb-4 grid5 text-center">
+					<h4 class="mx-auto"><span>5</span></h4>
+					<p class="mt-5">Lowest Rates</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-md-0 mb-4 grid6 text-center">
+					<h4 class="mx-auto"><span>6</span></h4>
+					<p class="mt-5">Best Quality Repairing</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 mb-sm-0 mb-4 grid7 text-center">
+					<h4 class="mx-auto"><span>7</span></h4>
+					<p class="mt-5">Online Booking</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="py-5 px-2 grid8 text-center">
+					<h4 class="mx-auto"><span>8</span></h4>
+					<p class="mt-5">24/7 Cab Service</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% include 'partials/our_mechanics.html' %}
+
+
+<!-- //Why taxi cab -->
+
+<!-- Cars slider -->
+<!-- <section class="food-Slider py-5">7
+	<div class="container py-lg-5">
+		<h3 class="heading text-capitalize text-center">Our Mechanics</h3>
+		<h5 class="heading mb-5 text-center">OnRoad vehicles Breakdown Assistant</h5>
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="row">
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Mini Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Prime Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Sedan Taxi </h5>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="row">
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Mini Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Prime Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Sedan Taxi </h5>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="row">
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Mini Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Prime Taxi </h5>
+						</div>
+						<div class="col-md-4 col-sm-6 slidering">
+							<div class="thumbnail"><img src="{% static 'images/1.png' %}" alt="Image" style="max-width:100%;"></div>
+							<h5 class="my-2 text-center text-uppercase">Sedan Taxi </h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+				<span class="fa fa-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+				<span class="fa fa-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+</section>
+ -->
+<script type="text/javascript">
+	var watchId;
+	window.onload = function()
+	{
+
+			if (navigator.geolocation){
+
+				watchId = navigator.geolocation.watchPosition(onSuccess, onError,
+				{maximumAge:60*1000, timeout:5*60*1000, enableHighAccuracy:true});
+			}
+	}
+	function onSuccess(position){
+		var currentLat = position.coords.latitude;
+		var currentLong = position.coords.longitude;
+		document.getElementById("lat").value = currentLat;
+		document.getElementById("long").value = currentLong;
+
+	}
+
+
+	function onError(error)
+	{
+		switch(error.code)
+		{
+			case PERMISSION_DENIED:
+				alert("User denied permission");
+				break;
+			case TIMEOUT:
+				alert("Geolocation timed out");
+				break;
+			case POSITION_UNAVAILABLE:
+				alert("Geolocation information is not available");
+				break;
+			default:
+				alert("Unknown error");
+				break;
+		}
+	}
+ </script>
+
+
+ <script>
+    $("#state_id").change(function () {
+      var url = $("#personForm").attr("data-district-url");
+      var state_id = $(this).val();
+      
+      $.ajax({
+        url: url,
+        data: {
+          'state_id': state_id
+        },
+        success: function (data) {
+          $("#id_district").html(data);
+        }
+      });
+
+    });
+
+    $("#id_district").change(function () {
+      var url = $("#personForm").attr("data-city-url");
+      var dist_id = $(this).val();
+     
+      $.ajax({
+        url: url,
+        data: {
+          'dist_id': dist_id
+        },
+        success: function (data) {
+          $("#id_city").html(data);
+        }
+      });
+
+    });
+
+  
+  </script>
+	
+
+ {% endblock %}
+
+
+
+ 

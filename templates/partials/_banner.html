@@ -1,0 +1,226 @@
+{% load static %}
+<style type="text/css">
+.select_car{    
+    height: auto;
+    width: 40%; 
+    background: white;y 
+    margin: 0 auto;
+    opacity: 0.7;
+  filter: alpha(opacity=30);
+
+}
+.car_options{
+    background: gray;
+    min-height: 15px;
+    font-size: 15px;
+    display:inline-block;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:999;
+    
+    list-style:none;
+    border:5px solid #ccc;
+    margin:0 20px;
+  vertical-align:top;
+     border:1px solid;
+  border-color:white #f7f7f7 whitesmoke;
+  border-radius:15px;
+  background-image: -webkit-linear-gradient(top,transparent,rgb(0,0,0,0.06));
+  background-image: -moz-linear-gradient(top,transparent,rgb(0,0,0,0.06));
+  background-image: -o-linear-gradient(top,transparent,rgb(0,0,0,0.06));
+  background-image: linear-gradient(top,transparent,rgb(0,0,0,0.06));
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+  box-shadow:0 1px 1px rgba(0,0,0,0.08)
+}
+.car_options li {
+    padding:0 6px;
+    margin:0 0;
+    text-shadow: 0 1px white;
+    padding:0 10px;
+}
+.car_options li:hover {
+    background-color:#39f;
+    color:white;
+}
+</style>
+
+
+<div class="banner" id="home">
+    <!-- header -->
+    
+    <!-- //header -->
+    <!-- banner-text -->
+    <div id="wrapper">
+
+        <!-- Slideshow 1 -->
+        <div class="rslides_container">
+            <ul class="rslides" id="slider1">
+               {% if user.is_authenticated%}
+                {% ifequal user.userprofile.user_type 'mechanics' %}
+                    <!-- {{user.userprofile.user_type}}
+                    {{use.userprofile.car_id}} -->
+                    <li>
+                    <div class="banner-img">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h1>24/7 Mechanic Service </h1>
+                                <!-- <h2 class="mb-5"><i class="fas fa-phone"></i> 70(69) 783 701</h2> -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img one">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Online Cab Booking</h4>
+                                <h5 class="mb-5">No Extra Charges</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img two">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Reach Your Destination</h4>
+                                <h5 class="mb-5">Within Exact Time </h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img three">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Travel Safe & Secure</h4>
+                                <h5 class="mb-5">Assured Cab Service</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endifequal %}
+                {% ifequal user.userprofile.user_type 'user' %}
+                    <li>
+                    <div class="banner-img">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h1>24/7 Mechanic Service </h1>
+                                <!-- <h2 class="mb-5"><i class="fas fa-phone"></i> 70(69) 783 701</h2> -->
+                                <a href="{% url 'booking' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img one">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Online Cab Booking</h4>
+                                <h5 class="mb-5">No Extra Charges</h5>
+                                <a href="{% url 'booking' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img two">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Reach Your Destination</h4>
+                                <h5 class="mb-5">Within Exact Time </h5>
+                                <a href="{% url 'booking' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img three">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Travel Safe & Secure</h4>
+                                <h5 class="mb-5">Assured Cab Service</h5>
+                                <a href="{% url 'booking' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endifequal %}
+                                
+                {% else %}
+                    <li>
+                    <div class="banner-img">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h1>24/7 Mechanic Service </h1>
+                                <!-- <h2 class="mb-5"><i class="fas fa-phone"></i> 70(69) 783 701</h2> -->
+                                <a href="{% url 'login' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img one">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Online Cab Booking</h4>
+                                <h5 class="mb-5">No Extra Charges</h5>
+                                <a href="{% url 'login' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img two">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Reach Your Destination</h4>
+                                <h5 class="mb-5">Within Exact Time </h5>
+                                <a href="{% url 'login' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-img three">
+                        <div class="bs-slider-overlay">
+                            <div class="banner-info text-center">
+                                <span class="fas fa-taxi"></span>
+                                <h4>Travel Safe & Secure</h4>
+                                <h5 class="mb-5">Assured Cab Service</h5>
+                                <a href="{% url 'login' %}">Book Now </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>   
+
+
+                
+            {% endif %}
+             
+            </ul>
+        </div>
+    </div>
+</div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+

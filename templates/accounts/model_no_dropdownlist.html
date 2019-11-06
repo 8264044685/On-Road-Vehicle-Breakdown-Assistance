@@ -1,0 +1,4 @@
+<option selected="true" disabled="disabled">Select Car model No</option>
+{% for car_models in car_model %}
+	<option value="{{ car_models.id }}">{{ car_models.model_no }}</option>
+{% endfor %}

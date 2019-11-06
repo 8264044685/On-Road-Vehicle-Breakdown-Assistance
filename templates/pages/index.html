@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!--  {% if user.is_authenticated%}
+    {% ifequal user.userprofile.user_type 'mechanics' %}
+        {{user.userprofile.user_type}}
+        {{use.userprofile.car_id}}
+    {% endifequal %}
+                    
+{% endif %}
+ -->
+{% if user.is_authenticated%}
+    {% ifequal user.userprofile.user_type 'user' %}
+        <!-- {{user.userprofile.user_type}} -->
+
+<section class="why">
+<div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Our Services</h3>
+    <h5 class="heading mb-5 text-center">Get Best Car Services Anywhere....</h5>
+    <div class="row why-grids">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid1 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">General Service</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid2 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Dent Repairs</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid3 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Clutch Repair</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid4 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Brake Repairs</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-md-0 mb-4 grid5 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Engine Issue</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-md-0 mb-4 grid6 text-center">
+                <a href="{% url 'booking' %}"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">AC repairs</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-sm-0 mb-4 grid7 text-center">
+                <a href="#"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Car Dryclean</p></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 grid8 text-center">
+                <a href="#"><h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5"></p></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {% endifequal %}
+    {% ifequal user.userprofile.user_type 'mechanics' %}
+        <!-- {{user.userprofile.user_type}} -->
+    </section><section class="why">
+<div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Our Services</h3>
+    <h5 class="heading mb-5 text-center">Taxi Cab</h5>
+    <div class="row why-grids">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid1 text-center">
+                <h4 class="mx-auto"><span>1</span></h4>
+                <p class="mt-5">Top Rated Drivers</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid2 text-center">
+                <h4 class="mx-auto"><span>2</span></h4>
+                <p class="mt-5">Safety Journey</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid3 text-center">
+                <h4 class="mx-auto"><span>3</span></h4>
+                <p class="mt-5">Without Peak Pricing</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-4 grid4 text-center">
+                <h4 class="mx-auto"><span>4</span></h4>
+                <p class="mt-5">Fast And Secure</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-md-0 mb-4 grid5 text-center">
+                <h4 class="mx-auto"><span>5</span></h4>
+                <p class="mt-5">Lowest Rates</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-md-0 mb-4 grid6 text-center">
+                <h4 class="mx-auto"><span>6</span></h4>
+                <p class="mt-5">Best Quality Cabs</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 mb-sm-0 mb-4 grid7 text-center">
+                <h4 class="mx-auto"><span>7</span></h4>
+                <p class="mt-5">Online Booking</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="py-5 px-2 grid8 text-center">
+                <h4 class="mx-auto"><span>8</span></h4>
+                <p class="mt-5">24/7 Cab Service</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endifequal %}
+{% else %}
+<section class="why">
+    <div class="container-fluid p-md-5 p-3">
+        <h3 class="heading text-capitalize text-center">Why OnRoad vehicles Breakdown Assistant </h3>
+        <h5 class="heading mb-5 text-center"></h5>
+        <div class="row why-grids">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-4 grid1 text-center">
+                    <h4 class="mx-auto"><span>1</span></h4>
+                    <p class="mt-5">Genuine Spare Parts</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-4 grid2 text-center">
+                    <h4 class="mx-auto"><span>2</span></h4>
+                    <p class="mt-5">Best Market Prices</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-4 grid3 text-center">
+                    <h4 class="mx-auto"><span>3</span></h4>
+                    <p class="mt-5">Live Service Tracker</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-4 grid4 text-center">
+                    <h4 class="mx-auto"><span>4</span></h4>
+                    <p class="mt-5">Fast And Secure</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-md-0 mb-4 grid5 text-center">
+                    <h4 class="mx-auto"><span>5</span></h4>
+                    <p class="mt-5">Lowest Rates</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-md-0 mb-4 grid6 text-center">
+                    <h4 class="mx-auto"><span>6</span></h4>
+                    <p class="mt-5">Best Quality Repairing</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 mb-sm-0 mb-4 grid7 text-center">
+                    <h4 class="mx-auto"><span>7</span></h4>
+                    <p class="mt-5">Online Booking</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="py-5 px-2 grid8 text-center">
+                    <h4 class="mx-auto"><span>8</span></h4>
+                    <p class="mt-5">24/7 Service</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}         
+
+
+<!-- //team -->
+
+<!-- Our prices -->
+<!-- <section class="prices py-5">
+<div class="container py-lg-5 py-3">
+    <h3 class="heading text-capitalize text-center">Our Pricing</h3>
+    <h5 class="heading mb-5 text-center">Taxi Cab</h5>
+    <div class="row pricing-grids">
+        <div class="col-lg-3 col-md-6 price-grid">
+            <h3 class="mb-4">Micro Taxi -- <span class="">2$</span></h3>
+            <h4 class="my-3">Small fares for short rides</h4>
+            <p> Curabitur eu neque nec ante sagittis dapibus et eu purus. Proin et erat tempus, tempor sapien ac, faucibus nibh.</p>
+            <ul class="d-flex mt-3">
+                <li class="mr-3">2 <i class="fas fa-male" aria-hidden="true"></i></li>
+                <li class="mr-3">1 <i class="fas fa-suitcase" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mt-md-0 mt-5 price-grid">
+            <h3 class="mb-4">Mini Taxi -- <span class="">3$</span></h3>
+            <h4 class="my-3">Small fares for short rides</h4>
+            <p> Curabitur eu neque nec ante sagittis dapibus et eu purus. Proin et erat tempus, tempor sapien ac, faucibus nibh.</p>
+            <ul class="d-flex mt-3">
+                <li class="mr-3">2 <i class="fas fa-male" aria-hidden="true"></i></li>
+                <li class="mr-3">2 <i class="fas fa-suitcase" aria-hidden="true"></i></li>
+                <li class="mr-3">1 <i class="fas fa-wifi" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mt-lg-0 mt-5 price-grid">
+            <h3 class="mb-4">Prime Taxi -- <span class="">4$</span></h3>
+            <h4 class="my-3">Small fares for short rides</h4>
+            <p> Curabitur eu neque nec ante sagittis dapibus et eu purus. Proin et erat tempus, tempor sapien ac, faucibus nibh.</p>
+            <ul class="d-flex mt-3">
+                <li class="mr-3">3 <i class="fas fa-male" aria-hidden="true"></i></li>
+                <li class="mr-3">2 <i class="fas fa-suitcase" aria-hidden="true"></i></li>
+                <li class="mr-3">1 <i class="fas fa-wifi" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mt-lg-0 mt-5 price-grid">
+            <h3 class="mb-4">Sedan Taxi -- <span class="">5$</span></h3>
+            <h4 class="my-3">Small fares for short rides</h4>
+            <p> Curabitur eu neque nec ante sagittis dapibus et eu purus. Proin et erat tempus, tempor sapien ac, faucibus nibh.</p>
+            <ul class="d-flex mt-3">
+                <li class="mr-3">4 <i class="fas fa-male" aria-hidden="true"></i></li>
+                <li class="mr-3">3 <i class="fas fa-suitcase" aria-hidden="true"></i></li>
+                <li class="mr-3">1 <i class="fas fa-wifi" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</section> -->
+<!-- //Our prices -->
+
+<!--/testimonials-->
+
+{% include 'partials/our_mechanics.html' %}
+<script type="text/javascript">
+    function car_list(){
+                    var car_name = document.getElementById('car_name').value;
+                    var url = $("#car_models_form").attr("car-model-url");
+                    alert(url);
+                    
+                     $.ajax({
+                        url: url,
+                        type: "GET",
+                        data: {
+                          'car_name': car_name
+                        },
+                        success: function (data) {
+                          $("#display_model").html(data);
+                        }
+                    });
+                    
+    
+                }
+</script>
+
+
+{% endblock %}

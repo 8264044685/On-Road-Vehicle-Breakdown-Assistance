@@ -1,0 +1,6 @@
+<option selected="true" disabled="disabled">Select District</option>
+{% for district_names in district_name %}
+	<option value="{{ district_names.id }}">{{ district_names.dist_name }}</option>
+{% endfor %}
+
+

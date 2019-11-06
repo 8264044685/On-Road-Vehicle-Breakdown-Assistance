@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+	
+<br>
+<h2>Sign up</h2>
+<div class="container1">
+
+	<form method="post" class="register-form">
+    <p class="text-center dont-do text-info mt-3">Already have an account.
+                        <a href="{% url 'login' %}"  class="text-danger">
+                            Login Now..</a>
+    
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ profileForm.as_p }}
+    
+	<div class="button_css">
+    	<button class ="button button2" type="submit">Sign up</button>
+    	
+    </div>
+  </form>	
+</div>
+  
+{% endblock %}

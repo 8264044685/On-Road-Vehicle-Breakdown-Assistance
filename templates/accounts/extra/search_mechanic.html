@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+<section class="why">
+<div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Search Mechanics in your city</h3>
+<div style="margin: 0 auto; max-width: 1070px; min-height: 100px;   background-color: #f1f1f1" >
+  <!-- <form method="post"  id="personForm"   style="min-height: 100px;" data-mechanics-url="{% url 'load_mechanics' %}" data-district-url="{% url 'load_district' %}" data-city-url="{% url 'load_city' %}" data-model-url="{% url 'load_carModel' %}" >
+   -->
+ <form 	 id="personForm"   style="min-height: 100px;" data-mechanics-url="{% url 'load_mechanics' %}" data-district-url="{% url 'load_district' %}" data-city-url="{% url 'load_city' %}" data-model-url="{% url 'load_carModel' %}">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <td>
+        <select name="car_id" id="car_id" style="width: 190px;"  >
+          <option selected="true" disabled="disabled">Select Your Car</option>
+          {% for car in car %}
+           <option value="{{car.id}}">{{car.name}}</option>
+          {% endfor %}
+        </select>
+      </td>
+      <td>
+        <select name="model_id" id="model_id" style="width: 190px;">
+          <option selected="true" disabled="disabled">Select Car Model</option>
+        </select>     
+      </td>
+      <td>
+        <select name="state" id="state_id" style="width: 190px;">
+          <option selected="true" disabled="desabled">Select State</option>
+          {% for state in state %}
+            <option value="{{state.id}}">{{state.state_name}}</option>
+          {% endfor %}
+        </select>
+      </td>
+      <td>
+        <select name="district" id="id_district" style="width: 190px;">
+          <option selected="true" disabled="disabled">Select District</option>
+        </select>
+      </td>
+      <td>
+        <select name="city" id="id_city" style="width: 190px;">
+          <option selected="true" disabled="disabled">Select City</option>
+        </select>
+      </td>
+    </tr>
+    </table>
+  </table>
+  <br><br>
+</form>
+</div>
+
+
+<form action="{% url 'book_mechanics'  %}" method="POST">
+	{% csrf_token %}
+
+	{% for mechanic_data in mechanics_data %}
+	<div class="container py-lg-5 py-3">
+        <div class="inner-sec-w3layouts-agileits">
+            <div class="owl-carousel owl-theme">
+              <div class="item">
+        			<div class="card" style="width: 25rem;">
+					  <img class="card-img-top" src="{{ mechanic_data.userProfile.profile_picture.url }}" height="150" width="150" alt="Card image cap">
+					  <div class="card-body">
+					    <h5 class="card-title" style="font-size: 20px; font-weight: bold; text-transform: capitalize; ">{{mechanic_data.user.username}}</h5>
+					    <h5 class="card-text" style="min-height:50px; text-transform: capitalize;">{{mechanic_data.address}}</h5>
+					    <span style="font-weight: bold;">Services Name</span>
+					    <br>
+					    <span>{{ mechanic_data.services_name }}</span>
+					    <br>
+					    <input type="hidden" name="mechanics_work_id" value="{{mechanic_data.id}}">
+					    <br>
+					    <button type="submit" class="btn btn-primary">Book Mechanic</button>
+					  </div>
+					</div>
+              </div>
+            </div>
+        </div>
+    </div>
+	{% endfor %}
+  </section>
+</form>
+
+  <!-- <table>
+    <tr>
+      <td colspan="2"><h2 class="text-center text-capitalize time-new-romen" style="height: 50px; font-weight: bold;">Select Services<h2></td>
+    </tr>
+    
+    <tr style="width: : 1000px; float: left; height: 100px; line-height: 20px;">
+      <td style="width: 1000px; float: left; height: 100px;">
+        
+        {% for services in services %}
+          <input style="width: 50px; float: left; border: .5px groove;" type="checkbox" name="services_name" value="
+          {{services.services}}">
+          <div style="width: 150px; float: left; ">{{services.services}}</div>
+        {% endfor %}
+      </td>
+    </tr>
+  </table> -->      
+  <!-- {% if user.is_authenticated %}
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="userprofile_id" value="{{user.userprofile.id}}">
+  {% endif %}
+   --><!-- <section class="testimonials banner-bottom-agile-w3ls py-5">
+    <div class="container py-lg-5 py-3">
+        <div class="inner-sec-w3layouts-agileits">
+            <div class="owl-carousel owl-theme">
+              <div class="item">
+                <div id="mechanic_id" class="container">
+                
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </section> -->
+
+
+
+  
+
+
+
+
+	
+
+<script>
+    $("#car_id").change(function () {
+      var url = $("#personForm").attr("data-model-url");
+      var car_id = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'car_id': car_id
+        },
+        success: function (data) {
+          $("#model_id").html(data);
+        }
+      });
+
+    });
+
+    $("#state_id").change(function () {
+      var url = $("#personForm").attr("data-district-url");
+      var state_id = $(this).val();
+      
+      $.ajax({
+        url: url,
+        data: {
+          'state_id': state_id
+        },
+        success: function (data) {
+          $("#id_district").html(data);
+        }
+      });
+
+    });
+
+    $("#id_district").change(function () {
+      var url = $("#personForm").attr("data-city-url");
+      var dist_id = $(this).val();
+     
+      $.ajax({
+        url: url,
+        data: {
+          'dist_id': dist_id
+        },
+        success: function (data) {
+          $("#id_city").html(data);
+        }
+      });
+
+    });
+
+    // $("#id_city").change(function () {
+    //   var url = $("#personForm").attr("data-mechanics-url");
+    //   var city_id = $(this).val();
+     
+    //   $.ajax({
+    //     url: url,
+    //     data: {
+    //       'city_id': city_id
+    //     },
+    //     success: function (data) {
+    //       $("#mechanic_id").html(data);
+    //     }
+    //   });
+
+    // });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<h2>Log In</h2>
+<div class="container1">
+	<form method="post" action="{% url 'login' %}" class="register-form">
+    {% csrf_token %}
+    	<table>
+    		<input type="hidden" name="email" value="parasdabhi2021@gmail.com">
+    		<tr>
+    			<td>UserName</td>
+    			<td><input type="text" name="username" style="width: 400px;"></td>
+    		</tr>
+    		<tr>
+    			<td>Password</td>
+    			<td><input type="password" name="password" style="width: 400px;"></td>
+    		</tr>
+    	</table>
+	<div class="button_css">
+    	<button class ="button button2" type="submit">Sign In</button>
+    	
+    </div>
+    <p class="text-center dont-do text-info mt-3">Don't have an account?
+                        <a href="{% url 'register' %}"  class="text-danger">
+                            Register Now</a>
+  </form>	
+</div>
+{% endblock %}

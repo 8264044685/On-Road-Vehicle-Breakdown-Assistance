@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+	img{
+		border-radius: 50%;
+	}
+</style>
+<section class="why">
+	<div class="container-fluid p-md-5 p-3">
+    <h3 class="heading text-capitalize text-center">Your Profile</h3>
+    	<div style="margin: 0 auto; max-width: 500px; min-height: 100px;   background-color: #f1f1f1" >
+ 			<form method="post" enctype="multipart/form-data"  id="" action="{% url 'update_profile' %}"  style="min-height: 100px;">
+  			{% csrf_token %}
+  			<br>
+  			<table>
+  				<tr>
+  					<td colspan="2" align="center">
+  						{% for user_profile_data in user_profile_data %}
+  							{% if user_profile_data.profile_picture %}
+  								<img style="width: 200px; height: 200px" src="{{user_profile_data.profile_picture.url}}">
+  							{% endif %}
+  							
+  						{% endfor %}
+  					</td>
+  				</tr>
+  				
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;">Name</td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						{% for auth_user_data in auth_user_data %}
+  							<input type="text" name="username" value="{{auth_user_data.username}}">
+  						{% endfor %}
+  					</td>
+  				</tr>
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;">Email</td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						{% for auth_user_data in auth_user_data %}
+  							<input type="text" name="email" value="{{auth_user_data.email}}">
+  							
+  						{% endfor %}
+  					</td>
+  				</tr>
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;"><span>mobile No</span></td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						{% for user_profile_data in user_profile_data %}
+  							<input type="text" name="mobile_no" value="{{user_profile_data.mobile_No}}">
+  						{% endfor %}
+  					</td>
+  				</tr><tr>
+            <td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;"><span>Pincode</span></td>
+            <td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+              {% for user_profile_data in user_profile_data %}
+                <input type="text" name="pincode" value="{{user_profile_data.postal_code}}">
+              {% endfor %}
+            </td>
+          </tr>
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;"><span>City Name<span></td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						{% for user_profile_data in user_profile_data %}
+  							<input type="text" name="city_name" value="{{user_profile_data.city_name}}">
+  						{% endfor %}
+  					</td>
+  				</tr>
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;"><span>Age<span></td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						{% for user_profile_data in user_profile_data %}
+  							<input type="text" name="age" value="{{user_profile_data.age}}">
+  						{% endfor %}
+  					</td>
+  				</tr>
+  				<tr>
+  					<td style="width: 300px; height: 50px; text-align: center; font-size: 15px;font-weight: bold;">Select Your Profile</td>
+  					<td style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						<input type="file" name="profile_pic">
+  					</td>
+  				</tr>
+  				<tr>
+  					<td colspan="2" style="width: 200px; text-align: center; font-size: 15px;font-weight: bold;">
+  						<button type="submit"  class="btn btn-primary">Click To Update</button>
+  					</td>
+  				</tr>
+  				
+  			</table>
+			</form>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
